@@ -13,8 +13,14 @@ use Illuminate\Support\Facades\Route;
 
 // Root redirect
 Route::get('/', function () {
-    return redirect()->route('dashboard');
+    return auth()->check() ? redirect()->route('dashboard') : redirect()->route('login');
 });
+
+// Friendly aliases
+Route::redirect('/signin', '/login');
+Route::redirect('/sign-in', '/login');
+Route::redirect('/home', '/dashboard');
+Route::redirect('/case', '/cases');
 
 // Authentication routes
 Route::middleware('guest')->group(function () {
