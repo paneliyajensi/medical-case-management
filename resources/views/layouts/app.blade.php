@@ -157,6 +157,11 @@
             color: white;
         }
 
+        .role-badge.role-engineer {
+            background-color: #0284c7;
+            color: white;
+        }
+
         .btn-logout {
             background: transparent;
             border: 1px solid var(--slate-700);
@@ -496,7 +501,7 @@
             <div class="user-nav-box">
                 <div class="user-pill">
                     <span>{{ auth()->user()->name }}</span>
-                    <span class="role-badge {{ auth()->user()->isAdmin() ? 'role-admin' : 'role-viewer' }}">
+                    <span class="role-badge role-{{ strtolower(auth()->user()->role) }}">
                         {{ auth()->user()->role }}
                     </span>
                 </div>

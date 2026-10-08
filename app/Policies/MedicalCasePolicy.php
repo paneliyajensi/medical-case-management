@@ -15,7 +15,7 @@ class MedicalCasePolicy
      */
     public function viewAny(User $user): bool
     {
-        return in_array($user->role, ['Admin', 'Viewer']);
+        return in_array($user->role, ['Admin', 'Viewer', 'Engineer']);
     }
 
     /**
@@ -23,7 +23,7 @@ class MedicalCasePolicy
      */
     public function view(User $user, MedicalCase $case): bool
     {
-        return in_array($user->role, ['Admin', 'Viewer']);
+        return in_array($user->role, ['Admin', 'Viewer', 'Engineer']);
     }
 
     /**
@@ -31,7 +31,7 @@ class MedicalCasePolicy
      */
     public function create(User $user): bool
     {
-        return $user->isAdmin();
+        return in_array($user->role, ['Admin', 'Engineer']);
     }
 
     /**
@@ -39,11 +39,11 @@ class MedicalCasePolicy
      */
     public function update(User $user, MedicalCase $case): bool
     {
-        return $user->isAdmin();
+        return in_array($user->role, ['Admin', 'Engineer']);
     }
 
     /**
-     * Determine whether the user can delete the case.
+     * Determine whether the user can delete the case (Admin only).
      */
     public function delete(User $user, MedicalCase $case): bool
     {

@@ -34,6 +34,16 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
+        // 3. Seed Engineer user (Bonus role)
+        $engineer = User::firstOrCreate(
+            ['email' => 'engineer@medcase.local'],
+            [
+                'name' => 'Lead Biomedical Engineer',
+                'password' => Hash::make('password123'),
+                'role' => 'Engineer',
+            ]
+        );
+
         // 3. Seed at least 20 dummy cases (we create 24 curated medical cases)
         $casesData = [
             [

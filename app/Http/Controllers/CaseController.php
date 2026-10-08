@@ -55,15 +55,16 @@ class CaseController extends Controller
     /**
      * Show the form for creating a new case.
      */
-    public function create()
+    public function create(\App\Services\HolidayService $holidayService)
     {
         $this->authorize('create', MedicalCase::class);
 
         $case = new MedicalCase();
         $statuses = MedicalCase::STATUSES;
         $priorities = MedicalCase::PRIORITIES;
+        $upcomingHolidays = $holidayService->getUpcomingHolidays();
 
-        return view('cases.create', compact('case', 'statuses', 'priorities'));
+        return view('cases.create', compact('case', 'statuses', 'priorities', 'upcomingHolidays'));
     }
 
     /**
@@ -95,14 +96,15 @@ class CaseController extends Controller
     /**
      * Show the form for editing the specified case.
      */
-    public function edit(MedicalCase $case)
+    public function edit(MedicalCase $case, \App\Services\HolidayService $holidayService)
     {
         $this->authorize('update', $case);
 
         $statuses = MedicalCase::STATUSES;
         $priorities = MedicalCase::PRIORITIES;
+        $upcomingHolidays = $holidayService->getUpcomingHolidays();
 
-        return view('cases.edit', compact('case', 'statuses', 'priorities'));
+        return view('cases.edit', compact('case', 'statuses', 'priorities', 'upcomingHolidays'));
     }
 
     /**

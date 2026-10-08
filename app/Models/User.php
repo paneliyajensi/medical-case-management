@@ -40,7 +40,6 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
     ];
 
     /**
@@ -65,5 +64,13 @@ class User extends Authenticatable
     public function isViewer(): bool
     {
         return $this->role === 'Viewer';
+    }
+
+    /**
+     * Check if user is an Engineer.
+     */
+    public function isEngineer(): bool
+    {
+        return $this->role === 'Engineer';
     }
 }

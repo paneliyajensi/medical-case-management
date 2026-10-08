@@ -59,18 +59,24 @@
                 <div style="font-size: 0.78rem; font-weight: 600; color: var(--slate-500); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem; text-align: center;">
                     Quick Demo Credentials (Click to fill)
                 </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem;">
                     <button type="button" 
                             onclick="fillCredentials('admin@medcase.local', 'password123')"
                             class="btn btn-secondary btn-sm"
-                            style="font-size: 0.78rem; text-align: center; border-color: var(--primary);">
-                        <strong style="color: var(--primary);">Admin</strong> (Full CRUD)
+                            style="font-size: 0.75rem; text-align: center; border-color: var(--primary);">
+                        <strong style="color: var(--primary);">Admin</strong><br><span style="font-size:0.7rem; color:var(--slate-500);">Full CRUD</span>
+                    </button>
+                    <button type="button" 
+                            onclick="fillCredentials('engineer@medcase.local', 'password123')"
+                            class="btn btn-secondary btn-sm"
+                            style="font-size: 0.75rem; text-align: center; border-color: #0284c7;">
+                        <strong style="color: #0284c7;">Engineer</strong><br><span style="font-size:0.7rem; color:var(--slate-500);">Create/Edit</span>
                     </button>
                     <button type="button" 
                             onclick="fillCredentials('viewer@medcase.local', 'password123')"
                             class="btn btn-secondary btn-sm"
-                            style="font-size: 0.78rem; text-align: center;">
-                        <strong style="color: var(--slate-700);">Viewer</strong> (Read Only)
+                            style="font-size: 0.75rem; text-align: center;">
+                        <strong style="color: var(--slate-700);">Viewer</strong><br><span style="font-size:0.7rem; color:var(--slate-500);">Read-only</span>
                     </button>
                 </div>
             </div>

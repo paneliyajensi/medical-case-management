@@ -129,6 +129,22 @@
         @error('surgery_date')
             <span class="field-error">{{ $message }}</span>
         @enderror
+
+        <!-- Bonus: Public Holidays Reference from Nager.Date API -->
+        @if (!empty($upcomingHolidays))
+            <div style="margin-top: 0.6rem; padding: 0.5rem 0.75rem; background-color: var(--slate-100); border: 1px solid var(--slate-200); border-radius: var(--radius-sm); font-size: 0.775rem; color: var(--slate-700);">
+                <div style="font-weight: 700; margin-bottom: 0.2rem; color: var(--primary-dark); display: flex; align-items: center; gap: 0.35rem;">
+                    <span>📅</span> Upcoming Public Holidays (Nager.Date API):
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 0.15rem;">
+                    @foreach ($upcomingHolidays as $holiday)
+                        <div>
+                            <strong>{{ $holiday['date'] ?? '' }}</strong> &mdash; {{ $holiday['name'] ?? '' }} ({{ $holiday['countryCode'] ?? '' }})
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        @endif
     </div>
 </div>
 
