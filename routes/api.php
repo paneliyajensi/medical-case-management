@@ -1,19 +1,26 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\ApiAuthController;
+use App\Http\Controllers\Api\CaseApiController;
 use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| API Routes
+| REST API Routes (Medical Device Case Management)
 |--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Public Authentication Endpoints
+Route::post('/login', [ApiAuthController::class, 'login']);
+
+// Authenticated Endpoints (Sanctum Tokens)
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [ApiAuthController::class, 'logout']);
+
+    // Case Resource Endpoints
+    Route::get('/cases', [CaseApiController::class, 'index']);
+    Route::post('/cases', [CaseApiController::class, 'store']);
+    Route::get('/cases/{id}', [CaseApiController::class, 'show']);
+    Route::put('/cases/{id}', [CaseApiController::class, 'update']);
+    Route::delete('/cases/{id}', [CaseApiController::class, 'destroy']);
 });
