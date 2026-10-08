@@ -304,47 +304,5 @@ class CaseManagementTest extends TestCase
         $res->assertRedirect('/cases');
         $this->assertDatabaseMissing('cases', ['id' => $case->id]);
     }
-
-    /**
-     * Bonus: Test third role 'Engineer' can create and edit cases, but cannot delete (403).
-     */
-    public function test_engineer_can_create_and_update_but_cannot_delete_case(): void
-    {
-        $engineer = User::factory()->create(['role' => 'Engineer']);
-
-        // Engineer creates case
-        $newCase = [
-            'case_number' => 'CASE-ENG-001',
-            'patient_reference' => 'PAT-3321',
-            'surgeon_name' => 'Dr. Robert Patel',
-            'implant_type' => 'PEEK Spinal Interbody Cage',
-            'status' => 'Planning',
-            'priority' => 'High',
-            'surgery_date' => '2026-11-28',
-        ];
-
-        $createRes = $this->actingAs($engineer)->post('/cases', $newCase);
-        $createRes->assertSessionHasNoErrors();
-        $this->assertDatabaseHas('cases', [
-            'case_number' => 'CASE-ENG-001',
-            'created_by' => $engineer->id,
-        ]);
-
-        $case = MedicalCase::where('case_number', 'CASE-ENG-001')->first();
-
-        // Engineer updates case
-        $newCase['status'] = 'Approved';
-        $updateRes = $this->actingAs($engineer)->put("/cases/{$case->id}", $newCase);
-        $updateRes->assertSessionHasNoErrors();
-        $this->assertDatabaseHas('cases', [
-            'id' => $case->id,
-            'status' => 'Approved',
-        ]);
-
-        // Engineer tries to delete case -> Blocked with 403 Forbidden!
-        $deleteRes = $this->actingAs($engineer)->delete("/cases/{$case->id}");
-        $deleteRes->assertStatus(403);
-        $this->assertDatabaseHas('cases', ['id' => $case->id]);
-    }
 }
 

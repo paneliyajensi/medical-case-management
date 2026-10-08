@@ -15,7 +15,7 @@ class MedicalCasePolicy
      */
     public function viewAny(User $user): bool
     {
-        return in_array($user->role, ['Admin', 'Viewer', 'Engineer']);
+        return in_array($user->role, ['Admin', 'Viewer']);
     }
 
     /**
@@ -23,7 +23,7 @@ class MedicalCasePolicy
      */
     public function view(User $user, MedicalCase $case): bool
     {
-        return in_array($user->role, ['Admin', 'Viewer', 'Engineer']);
+        return in_array($user->role, ['Admin', 'Viewer']);
     }
 
     /**
@@ -31,7 +31,7 @@ class MedicalCasePolicy
      */
     public function create(User $user): bool
     {
-        return in_array($user->role, ['Admin', 'Engineer']);
+        return $user->isAdmin();
     }
 
     /**
@@ -39,7 +39,7 @@ class MedicalCasePolicy
      */
     public function update(User $user, MedicalCase $case): bool
     {
-        return in_array($user->role, ['Admin', 'Engineer']);
+        return $user->isAdmin();
     }
 
     /**

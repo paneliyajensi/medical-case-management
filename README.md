@@ -22,12 +22,11 @@ A medical device company tracks implant cases from draft to completion. Authoriz
 
 ## 2. Test Login Credentials (Dummy Accounts)
 
-The database seeder automatically initializes test accounts so reviewers can immediately log in and evaluate all access levels:
+The database seeder automatically initializes the two test users specified in the assignment so reviewers can immediately log in and evaluate both access levels:
 
 | Role | Email Address | Password | Permissions |
 |---|---|---|---|
 | **Admin** | `admin@medcase.local` | `password123` | Full access: View cases, Create cases, Edit cases, Change status, Delete cases |
-| **Engineer** *(Bonus)* | `engineer@medcase.local` | `password123` | Operational access: View cases, Create cases, Edit cases, Change status (Blocked from deleting) |
 | **Viewer** | `viewer@medcase.local` | `password123` | Read-only access: View cases & details only (Cannot create, edit, or delete) |
 
 *(Note: On the login page `/login`, convenient 1-click credential buttons are also provided to fill these credentials automatically).*
@@ -162,18 +161,14 @@ Error responses (401, 403, 404, 422) follow the matching schema:
 
 ## 8. Bonus Tasks Implemented
 
-All four optional bonus tasks described in Section 8 of the specification have been implemented and verified:
-1. **Third Role (`Engineer`):**
-   - Can view, create, edit cases, and transition statuses.
-   - Strictly forbidden from deleting cases (enforced at both policy and controller levels with HTTP 403 response).
-   - Automated verification in `test_engineer_can_create_and_update_but_cannot_delete_case`.
-2. **Priority Filtering & Column Sorting:**
+The following optional bonus tasks described in Section 8 of the specification have been implemented and verified:
+1. **Priority Filtering & Column Sorting:**
    - Filter dropdown by priority (`Low`, `Medium`, `High`) and clickable column sorting headers (Case Number, Surgeon, Status, Surgery Date) preserved across pagination queries.
-3. **External Public API Call (Nager.Date Holidays):**
+2. **External Public API Call (Nager.Date Holidays):**
    - Laravel HTTP client integration (`App\Services\HolidayService`) queries upcoming public holidays.
    - API endpoint configured via `.env` (`PUBLIC_HOLIDAYS_API_URL`), protected by strict 3-second timeout and graceful failure handling.
    - Rendered alongside the Surgery Date picker to aid clinical scheduling.
-4. **AWS Deployment Architecture Documentation:**
+3. **AWS Deployment Architecture Documentation:**
    - Complete production deployment guide in [docs/deployment.md](file:///c:/Users/himan/Downloads/MedCase/docs/deployment.md) covering EC2, RDS for MySQL, S3 for files, security group isolation, AWS Parameter Store / Secrets Manager, and ACM HTTPS termination.
 
 ---
