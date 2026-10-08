@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -21,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -40,5 +40,30 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'password' => 'hashed',
     ];
+
+    /**
+     * Cases created by this user.
+     */
+    public function cases()
+    {
+        return $this->hasMany(MedicalCase::class, 'created_by');
+    }
+
+    /**
+     * Check if user is an Admin.
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === 'Admin';
+    }
+
+    /**
+     * Check if user is a Viewer.
+     */
+    public function isViewer(): bool
+    {
+        return $this->role === 'Viewer';
+    }
 }
